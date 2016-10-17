@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "24DBEDBC794DD24E3D179B17488DD5AAE01B93E2",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "24DBEDBC794DD24E3D179B17488DD5AAE01B93E2" : 9223372036854775807,
+    "1E683E72C694EB755BFE68EF9033603A38AB6589" : 9223372036854775807,
+    "FA05AFC5D771EC8FEB9C00D7ED661474816AF881" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "C92307C2-96ED-4953-B2D6-E3A18E4C4E0F",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "24DBEDBC794DD24E3D179B17488DD5AAE01B93E2" : "MovieViewer\/",
+    "1E683E72C694EB755BFE68EF9033603A38AB6589" : "",
+    "FA05AFC5D771EC8FEB9C00D7ED661474816AF881" : "..\/.."
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "MovieViewer",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "MovieViewer.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/limenuke\/ios-week1.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1E683E72C694EB755BFE68EF9033603A38AB6589"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/limenuke\/ios-week1.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "24DBEDBC794DD24E3D179B17488DD5AAE01B93E2"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/limenuke\/PChalCpp.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "FA05AFC5D771EC8FEB9C00D7ED661474816AF881"
+    }
+  ]
+}

@@ -8,6 +8,7 @@
 
 import UIKit
 import AFNetworking
+import KRProgressHUD
 /* api key
  a07e22bc18f5cb106bfe4cc1f83ad8ed
  */
@@ -21,12 +22,17 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     var movies: [NSDictionary]?
     var endpoint : String?
+    var refreshControl : UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //endpoint = "top_rated"
         tableView.dataSource = self
         tableView.delegate = self
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "networkRequest", for: UIControlEvents.valueChanged)
+        tableView.insertSubview(refreshControl, at: 0)
+        
         // Do any additional setup after loading the view.
         networkRequest()
         
@@ -37,6 +43,11 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func networkRequest () {
+        if !refreshControl.isRefreshing {
+            KRProgressHUD.show()
+        }
+        
+        
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
         let url = URL(string: "https://api.themoviedb.org/3/movie/\(endpoint!)?api_key=\(apiKey)")
         let request = NSURLRequest(
@@ -58,8 +69,14 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
                         print("response: \(responseDictionary)")
                         self.movies = responseDictionary["results"] as! [NSDictionary]
                         self.tableView.reloadData()
+                        if self.refreshControl.isRefreshing {
+                            self.refreshControl.endRefreshing()
+                        } else if KRProgressHUD.isVisible {
+                            KRProgressHUD.dismiss()
+                    }
                 }
             }
+        
         })
         task.resume()
     }
