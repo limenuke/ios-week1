@@ -19,6 +19,8 @@ https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f
  */
 class MovieViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    @IBOutlet weak var networkErrImage: UIImageView!
+    @IBOutlet weak var networkError: UIView!
     @IBOutlet weak var tableView: UITableView!
     var movies: [NSDictionary]?
     var endpoint : String?
@@ -32,7 +34,8 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "networkRequest", for: UIControlEvents.valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
-        
+        networkErrImage.image = UIImage(named:"warning")
+        networkError.isHidden = true
         // Do any additional setup after loading the view.
         networkRequest()
         
@@ -53,7 +56,7 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         let request = NSURLRequest(
             url: url!,
             cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData,
-            timeoutInterval: 10)
+            timeoutInterval: 4)
         
         let session = URLSession(
             configuration: URLSessionConfiguration.default,
@@ -62,7 +65,8 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         )
         
         let task: URLSessionDataTask = session.dataTask(with: request as URLRequest,
-                                                        completionHandler: { (dataOrNil, response, error) in
+        completionHandler: { (dataOrNil, response, error) in
+            
             if let data = dataOrNil {
                 if let responseDictionary = try! JSONSerialization.jsonObject(
                     with: data, options:[]) as? NSDictionary {
@@ -73,9 +77,23 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
                             self.refreshControl.endRefreshing()
                         } else if KRProgressHUD.isVisible {
                             KRProgressHUD.dismiss()
+                        }
+                    if (self.networkError.isHidden != true) {
+                        self.networkError.isHidden = true
                     }
+                    
                 }
             }
+            if let err = error {
+                if self.refreshControl.isRefreshing {
+                    self.refreshControl.endRefreshing()
+                } else if KRProgressHUD.isVisible {
+                    KRProgressHUD.dismiss()
+                }
+                self.networkError.isHidden = false;
+            }
+                                                            
+                            
         
         })
         task.resume()
@@ -113,12 +131,14 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         return cell
     }
     
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let cell = sender as! UITableViewCell
         let indexPath = tableView.indexPath(for:cell)
         let movie = movies![indexPath!.row]
         
         let detailViewController = segue.destination as! DetailViewController
+        self.tableView.deselectRow(at: indexPath! as IndexPath, animated: true)
         detailViewController.movie = movie
         
     }
